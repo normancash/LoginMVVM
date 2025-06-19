@@ -3,7 +3,7 @@ package com.uam.incrementovm.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val BASE_URL : String = "http://localhost:8181/api/"
+val BASE_URL : String = "http://10.0.2.2:8181/api/"
 
 object RetrofitInstance {
     val api: LoginApi by lazy {
