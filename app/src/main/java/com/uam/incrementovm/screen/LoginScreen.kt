@@ -1,5 +1,6 @@
 package com.uam.incrementovm.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.uam.incrementovm.model.AuthResult
 import com.uam.incrementovm.viewmodel.AuthViewModel
+
 
 @Composable
 fun LoginScreen(viewModel : AuthViewModel = viewModel())
@@ -53,11 +55,15 @@ fun LoginScreen(viewModel : AuthViewModel = viewModel())
         }
         Spacer(modifier = Modifier.height(10.dp))
         when (val s = state) {
+            is AuthResult.Idle->Text("Escriba sus credenciales")
             is AuthResult.Loading -> CircularProgressIndicator()
             is AuthResult.Success -> {
                 Text("Bienvenido/a ${s.user.nombre}")
             }
-            is AuthResult.Error -> Text("Error: ${s.message}", color = Color.Red)
+            is AuthResult.Error -> {
+                Text("Error: ${s.message}${s.message}", color = Color.Red)
+                Log.d("ERROR","ERROR: ${s.message} ")
+            }
         }
 
     }

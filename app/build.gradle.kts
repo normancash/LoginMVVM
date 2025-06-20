@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.converter.gson)
 
     //couretines
-    implementation(libs.kotlin.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
 }
