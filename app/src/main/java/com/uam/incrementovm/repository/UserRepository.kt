@@ -2,6 +2,7 @@ package com.uam.incrementovm.repository
 
 import com.uam.incrementovm.model.LoginRequest
 import com.uam.incrementovm.model.LoginResponse
+import com.uam.incrementovm.model.User
 import com.uam.incrementovm.network.RetrofitInstance
 
 class UserRepository {
@@ -14,6 +15,17 @@ class UserRepository {
             Result.success(response)
         }
         catch (e:Exception) {
+            Result.failure(e)
+        }
+    }
+
+
+    suspend fun getUsers(): Result<List<User>> {
+        return try {
+            val response = api.getUsers()
+            Result.success(response)
+        }
+        catch(e: Exception) {
             Result.failure(e)
         }
     }
