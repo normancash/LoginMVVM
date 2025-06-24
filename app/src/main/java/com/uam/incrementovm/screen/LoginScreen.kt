@@ -26,7 +26,7 @@ import com.uam.incrementovm.viewmodel.AuthViewModel
 @Composable
 fun LoginScreen(viewModel : AuthViewModel = viewModel())
 {
-    val state = viewModel.loginState.collectAsState()
+    val state by viewModel.loginState.collectAsState()
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
 
