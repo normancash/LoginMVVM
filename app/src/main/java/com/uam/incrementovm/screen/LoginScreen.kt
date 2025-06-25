@@ -26,7 +26,7 @@ import com.uam.incrementovm.viewmodel.AuthViewModel
 
 
 @Composable
-fun LoginScreen(viewModel : AuthViewModel = viewModel())
+fun LoginScreen(viewModel : AuthViewModel = viewModel(),onNext:()->Unit)
 {
     val state by viewModel.loginState.collectAsState()
     var username by rememberSaveable { mutableStateOf("") }
@@ -59,6 +59,7 @@ fun LoginScreen(viewModel : AuthViewModel = viewModel())
             is AuthResult.Loading -> CircularProgressIndicator()
             is AuthResult.Success -> {
                 Text("Bienvenido/a ${s.user.nombre}")
+                onNext()
             }
             is AuthResult.Error -> {
                 Text("Error: ${s.message}${s.message}", color = Color.Red)

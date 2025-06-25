@@ -8,6 +8,7 @@ import com.uam.incrementovm.model.AuthResult
 import com.uam.incrementovm.model.LoginRequest
 import com.uam.incrementovm.model.User
 import com.uam.incrementovm.network.RetrofitInstance
+import com.uam.incrementovm.network.ServiceLocator
 import com.uam.incrementovm.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +18,7 @@ class AuthViewModel : ViewModel(){
 
     private val _loginState = MutableStateFlow<AuthResult>(AuthResult.Idle)
     val loginState : StateFlow<AuthResult> = _loginState
-    private val repository = UserRepository()
+    private val repository = ServiceLocator.loginRepository
 
 
     fun login(username : String, password : String){
