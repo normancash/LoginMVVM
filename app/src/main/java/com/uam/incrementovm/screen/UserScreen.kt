@@ -19,11 +19,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.ui.unit.dp
+import com.uam.incrementovm.model.User
 import com.uam.incrementovm.viewmodel.UserViewModel
 
 
 @Composable
-fun UserScreen(userModel : UserViewModel = viewModel()) {
+fun UserScreen(userModel : UserViewModel = viewModel(),onNext:(User)->Unit) {
 
     val state by userModel.users.collectAsState()
     when(val s = state) {
@@ -44,6 +45,7 @@ fun UserScreen(userModel : UserViewModel = viewModel()) {
                         modifier = Modifier.fillMaxWidth()
                             .padding(8.dp),
                         elevation = CardDefaults.cardElevation(4.dp)
+                        , onClick = {onNext(user)}
                     ){
                         Text("${user.nombre} ${user.apellido}")
                         Text("${user.email} ")
