@@ -3,6 +3,7 @@ package com.uam.incrementovm.dao
 import androidx.room.Dao
 import androidx.room.Query
 import com.uam.incrementovm.db.User
+import com.uam.incrementovm.model.Users
 
 @Dao
 interface UserDao : BaseDao<User> {
@@ -11,4 +12,5 @@ interface UserDao : BaseDao<User> {
 
     @Query("SELECT * FROM users WHERE id = :id")
     suspend fun getUserById(id: Int): User
+    fun insertAll(users: Users)
 }

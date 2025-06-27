@@ -9,7 +9,7 @@ import androidx.room.Update
 
 
 @Dao
- interface BaseDao<T> {
+interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(users: List<T>)

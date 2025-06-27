@@ -1,21 +1,33 @@
 package com.uam.incrementovm.repository
 
-import com.uam.incrementovm.model.LoginRequest
-import com.uam.incrementovm.model.LoginResponse
-import com.uam.incrementovm.model.User
+import com.uam.incrementovm.dao.UserDao
 import com.uam.incrementovm.model.Users
-import com.uam.incrementovm.network.RetrofitInstance
 import com.uam.incrementovm.network.UserApi
 
-class UserRepository(private val userApi : UserApi) {
-
+class UserRepository(
+    private val userApi: UserApi,
+    private val dao: UserDao
+) {
     suspend fun getUsers(): Result<Users> {
         return try {
             val response = userApi.getUsers()
-            Result.success(response)
-        }
-        catch(e: Exception) {
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    dao.insertAll(it)
+                    Result.success(it)
+                }
+                    ?:Result.failure(Exception("No hay datos"))
+            }
+            else {
+                Result.failure(Exception("Error : ${response.message()}"))
+            }
+        } catch (e: Exception) {
             Result.failure(e)
         }
     }
+
+
+    suspend fun getUser(id: Int): com.uam.incrementovm.db.User = dao.getUserById(id)
 }
+
+
