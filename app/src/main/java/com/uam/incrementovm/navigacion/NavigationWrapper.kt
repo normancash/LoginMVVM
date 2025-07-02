@@ -8,7 +8,7 @@ import androidx.navigation.toRoute
 import com.uam.incrementovm.model.User
 import com.uam.incrementovm.screen.DetailUserScreen
 import com.uam.incrementovm.screen.LoginScreen
-import com.uam.incrementovm.screen.UserScreen
+import com.uam.incrementovm.screen.UserListScreen
 import com.uam.navegacionobject.type.generarType
 import kotlin.reflect.typeOf
 
@@ -22,7 +22,7 @@ fun Navigation() {
         }
         composable<ListUser>()
         { backStackEntry ->
-            UserScreen {navController.navigate(DetailUser(it))}
+            UserListScreen {navController.navigate(DetailUser(it))}
         }
         composable<DetailUser>(typeMap = mapOf(typeOf<User>() to generarType<User>())){
             backStackEntrty ->

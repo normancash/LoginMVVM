@@ -17,15 +17,20 @@ object ServiceLocator {
 
     fun provideUserRepository(context: Context): UserRepository {
         val appContext = context.applicationContext
-        val db = database ?: Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            "user_database"
-        ).build().also { database = it }
+        val db = createDB(appContext)
         return repository ?: UserRepository(
             userApi = userApi,
             dao = db.userDao()
         ).also { repository = it}
+    }
+
+    private fun createDB(context:Context): AppDatabase {
+        val db = database ?: Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabase::class.java,
+            "user_database"
+        ).build().also { database = it }
+        return db
     }
 
     val loginRepository by lazy {

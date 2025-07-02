@@ -2,19 +2,17 @@ package com.uam.incrementovm.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.uam.incrementovm.model.UserState
-import com.uam.incrementovm.network.ServiceLocator
+import com.uam.incrementovm.repository.UserRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class UserViewModel(): ViewModel() {
+class UserViewModel(private val userRepository: UserRepository): ViewModel() {
     private val _users = MutableStateFlow<UserState>(UserState.Idle())
     val users: StateFlow<UserState> = _users
-
-    private val userRepository = ServiceLocator.userRespository
-
 
     init {
         fetchUsers()
@@ -37,3 +35,14 @@ class UserViewModel(): ViewModel() {
         }
     }
 }
+
+class UserViewModelFactory(private val repository: UserRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return UserViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+

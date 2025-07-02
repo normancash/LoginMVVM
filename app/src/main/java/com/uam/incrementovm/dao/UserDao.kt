@@ -2,7 +2,7 @@ package com.uam.incrementovm.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.uam.incrementovm.db.User
+import com.uam.incrementovm.model.User
 import com.uam.incrementovm.model.Users
 
 @Dao

@@ -1,6 +1,7 @@
 package com.uam.incrementovm.repository
 
 import com.uam.incrementovm.dao.UserDao
+import com.uam.incrementovm.model.User
 import com.uam.incrementovm.model.Users
 import com.uam.incrementovm.network.UserApi
 
@@ -27,7 +28,7 @@ class UserRepository(
     }
 
 
-    suspend fun getUser(id: Int): com.uam.incrementovm.db.User = dao.getUserById(id)
+    suspend fun getUser(id: Int): User = dao.getUserById(id)
 }
 
 
